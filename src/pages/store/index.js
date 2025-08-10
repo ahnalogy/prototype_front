@@ -87,6 +87,7 @@ export default function StoreManagePage() {
         </button>
 
         {/* 매장 등록 모달 */}
+        {/*야놀자, 여기어때, booking.com, agoda, tripadvisor*/}
         {showModal && (
           <div className="flex items-center justify-center bg-white bg-opacity-100">
             <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-sm">
@@ -103,7 +104,7 @@ export default function StoreManagePage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm mb-1">사업자 번호</label>
+                  <label className="block text-sm mb-1">비밀번호</label>
                   <input
                     type="text"
                     value={modalBusinessNumber}

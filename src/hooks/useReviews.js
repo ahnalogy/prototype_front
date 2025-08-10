@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchReviews, fetchUpdateReview } from '@/api/review';
 import { fetchStores } from '@/api/store';
+import { fetchPlatformList } from '@/api/platform';
 
 export const useReviews = () => {
   const [reviewsData, setReviewsData] = useState([]);
@@ -13,7 +14,7 @@ export const useReviews = () => {
 
   const loadStores = async () => {
     const token = localStorage.getItem("token");
-    const data = await fetchStores(token);
+    const {ok, data} = await fetchPlatformList();
     setStores(data || []);
   };
 

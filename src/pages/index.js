@@ -51,15 +51,9 @@ export default function Home() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (isLoginMode) {
-      setLoginData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+      setLoginData(prev => ({ ...prev, [name]: value }));
     } else {
-      setRegisterData(prev => ({
-        ...prev,
-        [name]: value
-      }));
+      setRegisterData(prev => ({ ...prev, [name]: value }));
     }
   };
 
@@ -72,14 +66,10 @@ export default function Home() {
       if (isLoginMode) {
         const { ok, data } = await fetchLogin(loginData.email, loginData.password);
         if (ok) {
-          console.log('로그인 성공:', data);
           localStorage.setItem('token', data.access_token);
           setCurrentUser(data.user);
-          router.push('/dashboard'); // ← 이 부분만 변경
-          setLoginData({
-            email: "",
-            password: ""
-          });
+          router.push('/dashboard');
+          setLoginData({ email: "", password: "" });
         } else {
           setMessage(data.detail || "로그인에 실패했습니다.");
         }
@@ -114,170 +104,132 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F8FB] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full grid grid-rows-[auto_auto_1fr_auto] gap-6">
-        {/* Fixed Branding Section */}
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <div className="w-20 h-12 bg-[url('/icons/lemong_logo.png')] bg-contain bg-no-repeat bg-center"></div>
-          </div>
-          <h2 className="text-3xl font-bold text-[#222] mb-2">
-            The Dream Solution
-          </h2>
-          <div className="h-8 flex items-center justify-center">
-            <p className="text-[#888] text-sm">
-              {isLoginMode ? "계정에 로그인하세요" : "새 계정을 만드세요"}
-            </p>
-          </div>
+    <div className="min-h-screen bg-[#F3F7F5] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex max-w-6xl w-full bg-white rounded-xl shadow-lg overflow-hidden">
+        {/* Left Image Section */}
+        <div className="hidden lg:block lg:w-1/2">
+          <img
+            src="/icons/left_side_image_resized.png"
+            alt="Login Visual"
+            className="w-full h-full object-cover"
+          />
         </div>
 
-        {/* Toggle Buttons */}
-        <div className="flex bg-gray-100 rounded-lg p-1">
-          <button
-            onClick={() => setIsLoginMode(true)}
-            className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-colors ${
-              isLoginMode
-                ? "bg-white text-[#222] shadow-sm"
-                : "text-gray-600 hover:text-[#222]"
-            }`}
-          >
-            로그인
-          </button>
-          <button
-            onClick={() => setIsLoginMode(false)}
-            className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-colors ${
-              !isLoginMode
-                ? "bg-white text-[#222] shadow-sm"
-                : "text-gray-600 hover:text-[#222]"
-            }`}
-          >
-            회원가입
-          </button>
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-lg p-8 space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-[#222] mb-2">
-              이메일
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={isLoginMode ? loginData.email : registerData.email}
-              onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-              placeholder="이메일을 입력하세요"
-            />
+        {/* Right Form Section */}
+        <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center">
+          <div className="text-center">
+            <div className="flex justify-center mb-4">
+              <div className="w-20 h-12 bg-[url('/icons/lemong_logo.png')] bg-contain bg-no-repeat bg-center"></div>
+            </div>
+            <h2 className="text-3xl font-bold text-[#222] mb-2">The Dream Solution</h2>
+            <p className="text-[#888] text-sm mb-6">{isLoginMode ? "계정에 로그인하세요" : "새 계정을 만드세요"}</p>
           </div>
 
-          {!isLoginMode && (
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-[#222] mb-2">
-                사용자명
-              </label>
+              <label className="block text-sm font-medium text-[#222] mb-2">이메일</label>
               <input
-                type="text"
-                name="username"
-                value={registerData.username}
+                type="email"
+                name="email"
+                value={isLoginMode ? loginData.email : registerData.email}
                 onChange={handleInputChange}
                 required
+                placeholder="이메일을 입력하세요"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-                placeholder="사용자명을 입력하세요"
               />
             </div>
-          )}
 
-          <div>
-            <label className="block text-sm font-medium text-[#222] mb-2">
-              비밀번호
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={isLoginMode ? loginData.password : registerData.password}
-              onChange={handleInputChange}
-              required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-              placeholder="비밀번호를 입력하세요"
-            />
-          </div>
-
-          {!isLoginMode && (
-            <>
+            {!isLoginMode && (
               <div>
-                <label className="block text-sm font-medium text-[#222] mb-2">
-                  비밀번호 확인
-                </label>
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  value={registerData.confirmPassword}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-                  placeholder="비밀번호를 다시 입력하세요"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-[#222] mb-2">
-                  휴대폰 번호
-                </label>
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  value={registerData.phoneNumber}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-                  placeholder="휴대폰 번호를 입력하세요"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-[#222] mb-2">
-                  추천인 코드 (선택)
-                </label>
+                <label className="block text-sm font-medium text-[#222] mb-2">사용자명</label>
                 <input
                   type="text"
-                  name="referralCode"
-                  value={registerData.referralCode}
+                  name="username"
+                  value={registerData.username}
                   onChange={handleInputChange}
+                  required
+                  placeholder="사용자명을 입력하세요"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
-                  placeholder="추천인 코드를 입력하세요"
                 />
               </div>
-            </>
-          )}
+            )}
 
-          {message && (
-            <div className={`p-4 rounded-lg text-sm ${
-              message.includes("완료") || message.includes("성공")
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}>
-              {message}
+            <div>
+              <label className="block text-sm font-medium text-[#222] mb-2">비밀번호</label>
+              <input
+                type="password"
+                name="password"
+                value={isLoginMode ? loginData.password : registerData.password}
+                onChange={handleInputChange}
+                required
+                placeholder="비밀번호를 입력하세요"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
+              />
             </div>
-          )}
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-[#e8edf2] text-black py-3 rounded-lg font-medium hover:bg-[#d1d8e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            {!isLoginMode && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-[#222] mb-2">비밀번호 확인</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={registerData.confirmPassword}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="비밀번호를 다시 입력하세요"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#222] mb-2">휴대폰 번호</label>
+                  <input
+                    type="tel"
+                    name="phoneNumber"
+                    value={registerData.phoneNumber}
+                    onChange={handleInputChange}
+                    placeholder="휴대폰 번호를 입력하세요"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-[#222] mb-2">추천인 코드 (선택)</label>
+                  <input
+                    type="text"
+                    name="referralCode"
+                    value={registerData.referralCode}
+                    onChange={handleInputChange}
+                    placeholder="추천인 코드를 입력하세요"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#e8edf2] focus:border-transparent"
+                  />
+                </div>
+              </>
+            )}
+
+            {message && (
+              <div className={`p-4 rounded-lg text-sm ${message.includes("완료") || message.includes("성공") ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>{message}</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full bg-[#e8edf2] text-black py-3 rounded-lg font-medium hover:bg-[#d1d8e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "처리 중..." : (isLoginMode ? "로그인" : "회원가입")}
+            </button>
+          </form>
+
+          <p className="mt-4 text-center text-sm text-[#888] cursor-pointer hover:underline"
+             onClick={() => setIsLoginMode(!isLoginMode)}
           >
-            {isSubmitting ? "처리 중..." : (isLoginMode ? "로그인" : "회원가입")}
-          </button>
-        </form>
+            {isLoginMode ? "계정이 없으신가요? 회원가입하기" : "이미 계정이 있으신가요? 로그인하기"}
+          </p>
 
-        {/* Footer */}
-        <div className="text-center text-sm text-[#888]">
-          <p>© 2024 The Dream Solution. All rights reserved.</p>
+          <p className="mt-4 text-center text-sm text-[#888]">
+            © 2024 The Dream Solution. All rights reserved.
+          </p>
         </div>
       </div>
     </div>
   );
 }
-
-
-
