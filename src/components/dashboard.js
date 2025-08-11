@@ -94,6 +94,33 @@ export default function DashboardStats() {
           ))}
         </section>
 
+        {/* 고객 리뷰 섹션 */}
+        <section className="mb-8">
+          <h2 className="text-xl font-bold text-[#222] mb-4">
+            고객 리뷰
+          </h2>
+          
+          <div className="bg-white rounded-xl shadow p-6">
+            <div className="space-y-6">
+              {reviewData.map((review, index) => (
+                <article key={index} className="border-b border-gray-100 last:border-b-0 pb-6 last:pb-0">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="font-medium text-[#222] text-base">
+                      {review.username}
+                    </div>
+                    <time className="text-[#49729b] text-sm">
+                      {review.date}
+                    </time>
+                  </div>
+                  <p className="text-[#222] text-base leading-6">
+                    {review.comment}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* 예약 현황 섹션 */}
         <section className="mb-8">
           <h2 className="text-xl font-bold text-[#222] mb-4">
@@ -136,33 +163,6 @@ export default function DashboardStats() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </div>
-        </section>
-
-        {/* 고객 리뷰 섹션 */}
-        <section className="mb-8">
-          <h2 className="text-xl font-bold text-[#222] mb-4">
-            고객 리뷰
-          </h2>
-          
-          <div className="bg-white rounded-xl shadow p-6">
-            <div className="space-y-6">
-              {reviewData.map((review, index) => (
-                <article key={index} className="border-b border-gray-100 last:border-b-0 pb-6 last:pb-0">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="font-medium text-[#222] text-base">
-                      {review.username}
-                    </div>
-                    <time className="text-[#49729b] text-sm">
-                      {review.date}
-                    </time>
-                  </div>
-                  <p className="text-[#222] text-base leading-6">
-                    {review.comment}
-                  </p>
-                </article>
-              ))}
             </div>
           </div>
         </section>

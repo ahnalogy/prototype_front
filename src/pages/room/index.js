@@ -87,9 +87,10 @@ function ReserveIndex({ currentUser }) {
   return (
     <Layout>
       <div className="bg-white min-h-screen w-full">
-        <div className="px-6 py-5 w-full">
-          <h1 className="text-3xl font-bold text-[#222] mb-2">객실 관리</h1>
-          <p className="text-[#888] mb-6">객실 재고, 상태, 세부정보를 관리합니다.</p>
+        <div className="flex items-start justify-center gap-1 px-6 py-5 relative flex-1 self-stretch w-full grow">
+          <main className="flex-1 px-8 py-10">
+            <h1 className="text-3xl font-bold text-[#222] mb-2">객실 관리</h1>
+            <p className="text-[#888] mb-8">객실 재고, 상태, 세부정보를 관리합니다.</p>
 
           {/* Source Tabs */}
           <StoreTab>
@@ -200,6 +201,7 @@ function ReserveIndex({ currentUser }) {
               </tbody>
             </table>
           </div>
+          </main>
         </div>
       </div>
     </Layout>

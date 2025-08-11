@@ -46,7 +46,7 @@ export default function LeftNavigationBar() {
 
       <div className="flex flex-col gap-2 px-2 w-full">
         <Menu text="대시보드" url="/dashboard" icon={<FaHome />} active={currentPath === "/dashboard"} />
-        <Menu text="플랫폼관리" url="/store" icon={<FaGlobe />} active={currentPath === "/store"} />
+        <Menu text="플랫폼관리" url="/platform" icon={<FaGlobe />} active={currentPath === "/store"} />
         <Menu text="예약관리" url="/reservation" icon={<FaCalendarAlt />} active={currentPath === "/reservation"} />
         <Menu text="객실관리" url="/room" icon={<FaBed />} active={currentPath === "/room"} />
         <Menu text="통계/분석" url="/report" icon={<FaChartBar />} active={currentPath === "/report"} />

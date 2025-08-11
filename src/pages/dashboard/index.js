@@ -120,6 +120,138 @@ export default function Dashboard() {
           </section>
 
           <section className="mb-8">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-bold text-[#222]">고객 리뷰</h2>
+              <button onClick={handleReviewClick} className="text-[#49729b] hover:text-[#222] text-sm font-medium">
+                전체보기 →
+              </button>
+            </div>
+            <div className="bg-white rounded-xl shadow p-6">
+                             <div className="grid grid-cols-5 gap-4">
+                 {/* Column 1 */}
+                                   <div className="flex flex-col gap-4">
+                    <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                      <img 
+                        src="/hotel_images/021.png" 
+                        alt="Hotel building" 
+                        className="w-full h-32 object-cover"
+                      />
+                                             <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-10 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">+3</div>
+                       </div>
+                     </div>
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/022.png" 
+                         alt="Hotel lobby" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel lobby</div>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Column 2 */}
+                   <div className="flex flex-col gap-4">
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/023.png" 
+                         alt="Hotel room" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel room</div>
+                       </div>
+                     </div>
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/024.png" 
+                         alt="Hotel exterior" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel exterior</div>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Column 3 */}
+                   <div className="flex flex-col gap-4">
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/025.png" 
+                         alt="City night view" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">City night view</div>
+                       </div>
+                     </div>
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/026.png" 
+                         alt="Hotel room with city view" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel room with city view</div>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Column 4 */}
+                   <div className="flex flex-col gap-4">
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/027.png" 
+                         alt="Hotel room with ocean view" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel room with ocean view</div>
+                       </div>
+                     </div>
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/028.png" 
+                         alt="Hotel room with night city view" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel room with night city view</div>
+                       </div>
+                     </div>
+                   </div>
+
+                   {/* Column 5 */}
+                   <div className="flex flex-col gap-4">
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/029.png" 
+                         alt="Traditional house with pool" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Traditional house with pool</div>
+                       </div>
+                     </div>
+                     <div className="bg-white border border-gray-200 rounded-lg overflow-hidden relative group">
+                       <img 
+                         src="/hotel_images/030.png" 
+                         alt="Hotel room with ocean and palm trees" 
+                         className="w-full h-32 object-cover"
+                       />
+                       <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800 bg-opacity-50 transform translate-y-full transition-transform duration-300 group-hover:translate-y-0">
+                         <div className="p-2 text-white text-xs">Hotel room with ocean and palm trees</div>
+                       </div>
+                     </div>
+                   </div>
+               </div>
+            </div>
+          </section>
+
+          <section className="mb-8">
             <h2 className="text-xl font-bold text-[#222] mb-4">최근 예약 현황</h2>
             <div className="bg-white rounded-xl shadow p-6">
               <div className="overflow-x-auto">
@@ -149,40 +281,6 @@ export default function Dashboard() {
                     ))}
                   </tbody>
                 </table>
-              </div>
-            </div>
-          </section>
-
-          <section className="mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-[#222]">고객 리뷰</h2>
-              <button onClick={handleReviewClick} className="text-[#49729b] hover:text-[#222] text-sm font-medium">
-                전체보기 →
-              </button>
-            </div>
-            <div className="bg-white rounded-xl shadow p-6">
-              <div className="space-y-6">
-                {reviewData.map((review, index) => (
-                  <article
-                    key={index}
-                    className="border-b border-gray-100 last:border-b-0 pb-6 last:pb-0 hover:bg-gray-50 p-3 rounded-lg"
-                    onClick={handleReviewClick}
-                  >
-                    <div className="flex justify-between items-center mb-1">
-                      <div className="text-base font-medium text-[#222]">{review.username}</div>
-                      <div className="flex gap-[2px]">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <FaStar
-                            key={i}
-                            className={i < review.rating ? "text-yellow-400" : "text-gray-300"}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="text-sm text-[#49729b] mb-2">{review.date}</div>
-                    <p className="text-[#222] text-base leading-6">{review.comment}</p>
-                  </article>
-                ))}
               </div>
             </div>
           </section>

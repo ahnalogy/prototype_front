@@ -52,35 +52,48 @@ const ReviewCard = memo(({
     return (
         <div className="bg-white rounded-xl shadow p-6">
             <div className="flex justify-between items-start mb-3">
-                <div>
+                <div className="flex-1 pr-4">
                     <h3 className="font-semibold text-[#222]">{review.reviewer}</h3>
                     <p className="text-sm text-[#888]">{review.created_at}</p>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                    <div className="flex">
-                        {renderStars(review.rating)}
-                    </div>
-                    {/* 번역하기 버튼 */}
-                    <button
-                        className="px-3 py-1 text-xs bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors flex items-center gap-1"
-                        onClick={() => onTranslate(review.id, review.content)}
-                        disabled={isTranslating}
-                    >
-                        {isTranslating ? (
-                            <>
-                                <LoadingSpinner size="xs" />
-                                번역 중...
-                            </>
-                        ) : (
-                            <>
-                                {isTranslated ? "원문 보기" : "번역하기"}
-                            </>
-                        )}
-                    </button>
+                <div className="flex-shrink-0">
+                    {renderStars(review.rating)}
                 </div>
             </div>
             
-            <p className="text-[#222] mb-4">{displayText}</p>
+            <div className="mb-4 pr-4">
+                <p className="text-[#222] whitespace-pre-wrap break-words leading-relaxed">{displayText}</p>
+            </div>
+            
+            {/* 영어 리뷰인 경우에만 번역하기 버튼 표시 */}
+            {!/^[가-힣]/.test(review.content) && (
+                <div className="flex justify-end mb-4">
+                    <div className="flex flex-col items-center gap-1">
+                        {/* 번역 아이콘 이미지 */}
+                        <img 
+                            src="../../hotel_images/001.png" 
+                            alt="번역 아이콘" 
+                            className="w-4 h-4 opacity-60"
+                        />
+                        <button
+                            className="px-3 py-1 text-xs bg-blue-100 text-blue-600 rounded-md hover:bg-blue-200 transition-colors flex items-center gap-1"
+                            onClick={() => onTranslate(review.id, review.content)}
+                            disabled={isTranslating}
+                        >
+                            {isTranslating ? (
+                                <>
+                                    <LoadingSpinner size="xs" />
+                                    번역 중...
+                                </>
+                            ) : (
+                                <>
+                                    {isTranslated ? "원문 보기" : "번역하기"}
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            )}
             
             <div className="flex items-center gap-4 mb-4">
                 <div className="flex items-center gap-1">
@@ -140,47 +153,55 @@ const ReviewCard = memo(({
                 )}
 
                 <div className="flex justify-end gap-3">
-                    {!editModeFor[review.id] && (
-                        <>
-                            <button 
-                                className="px-4 py-2 border border-[#E5E7EB] text-black rounded-lg cursor-pointer flex items-center gap-2"
-                                onClick={() => onGenerateReply(review)}
-                                disabled={isCreatingForThisReview}
-                            >
-                                {isCreatingForThisReview ? (
-                                    <>
-                                        <LoadingSpinner size="sm" />
-                                        생성 중...
-                                    </>
-                                ) : (
-                                    "생성하기"
-                                )}
-                            </button>
-                            <button 
-                                className="px-4 py-2 bg-[#e8edf2] text-black rounded-lg cursor-pointer"
-                                onClick={() => onSubmitReply(review.id)}
-                            >
-                                답변달기
-                            </button>
-                            {review.isReplied && (
+                    {/* 생성하기 버튼 - 답변이 없을 때만 표시 */}
+                    {!review.isReplied && (
+                        <button 
+                            className="px-4 py-2 border border-[#E5E7EB] text-black rounded-lg cursor-pointer flex items-center gap-2"
+                            onClick={() => onGenerateReply(review)}
+                            disabled={isCreatingForThisReview}
+                        >
+                            {isCreatingForThisReview ? (
                                 <>
-                                    <button 
-                                        className="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600"
-                                        onClick={() => onEditReply(review.id)}
-                                    >
-                                        수정하기
-                                    </button>
-                                    <button 
-                                        className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600"
-                                        onClick={() => onDeleteReply(review.id)}
-                                    >
-                                        삭제하기
-                                    </button>
+                                    <LoadingSpinner size="sm" />
+                                    생성 중...
                                 </>
+                            ) : (
+                                "생성하기"
                             )}
-                        </>
+                        </button>
                     )}
                     
+                    {/* 답변달기 버튼 - 답변이 없을 때만 표시 */}
+                    {!review.isReplied && (
+                        <button 
+                            className="px-4 py-2 bg-[#e8edf2] text-black rounded-lg cursor-pointer"
+                            onClick={() => onSubmitReply(review.id)}
+                        >
+                            답변달기
+                        </button>
+                    )}
+                    
+                                         {/* 수정하기 버튼 - 답변이 있고 수정 모드가 아닐 때만 표시 */}
+                     {review.isReplied && !editModeFor[review.id] && (
+                         <button 
+                             className="px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600"
+                             onClick={() => onEditReply(review.id)}
+                         >
+                             수정하기
+                         </button>
+                     )}
+                     
+                     {/* 삭제하기 버튼 - 답변이 있고 수정 모드가 아닐 때만 표시 */}
+                     {review.isReplied && !editModeFor[review.id] && (
+                         <button 
+                             className="px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer hover:bg-red-600"
+                             onClick={() => onDeleteReply(review.id)}
+                         >
+                             삭제하기
+                         </button>
+                     )}
+                    
+                    {/* 수정 모드일 때만 표시되는 버튼들 */}
                     {editModeFor[review.id] && (
                         <>
                             <button 

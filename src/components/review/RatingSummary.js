@@ -23,10 +23,13 @@ const RatingSummary = ({ reviews }) => {
           <div key={rating} className="flex items-center">
             <span className="w-8 text-sm text-[#888]">{rating}★</span>
             <div className="flex-1 mx-4 bg-gray-200 rounded-full h-2 relative">
-              <div
-                className="bg-blue-500 h-2 rounded-full relative"
-                style={{ width: `${ratingPercents[idx]}%` }}
-              />
+                             <div
+                 className="h-2 rounded-full relative"
+                 style={{ 
+                   width: `${ratingPercents[idx]}%`,
+                   backgroundColor: '#d97706'
+                 }}
+               />
             </div>
             <span className="w-12 text-sm text-[#888] text-right">
               {ratingPercents[idx]}%

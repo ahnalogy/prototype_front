@@ -2,7 +2,8 @@ import { API_BASE_URL } from "@/config/api";
 
 export async function fetchReviews(token, store,pageNum) {
     const encodedStore = encodeURIComponent(store);
-    const res = await fetch(`${API_BASE_URL}/review/list/${encodedStore}?offset=${pageNum}&limit=10`, {
+    const offset = (pageNum - 1) * 10;
+    const res = await fetch(`${API_BASE_URL}/review/list/${encodedStore}?offset=${offset}&limit=10`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return res.json().then(data => ({ ok: res.ok, data }));
@@ -34,7 +35,7 @@ export async function fetchUpdateReview(token, reviewId, content) {
     return res.json().then(data => ({ ok: res.ok, data }));
   }
 
-export async function fetchCreateReview(token,reviewer,rating,store,content) {
+export async function fetchCreateReview(token,reviewer,rating,platform,content) {
   const res = await fetch(`${API_BASE_URL}/review/create`, {
     method: "POST",
     headers: { 
@@ -45,7 +46,7 @@ export async function fetchCreateReview(token,reviewer,rating,store,content) {
       content: content,
       rating: rating,
       reviewer: reviewer,
-      store:store
+      platform: platform
      }),
   });
   return res.json().then(data => ({ ok: res.ok, data }));

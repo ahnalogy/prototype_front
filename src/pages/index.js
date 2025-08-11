@@ -104,13 +104,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" 
-         style={{ backgroundImage: "url('/icons/login_bg.png')" }}>
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex max-w-6xl w-full bg-white/95 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden">
         {/* Left Image Section */}
         <div className="hidden lg:block lg:w-1/2">
           <img
-            src="/icons/left_side_image_resized.png"
+            src="/icons/login_image.png"
             alt="Login Visual"
             className="w-full h-full object-cover"
           />

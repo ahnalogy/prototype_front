@@ -176,20 +176,25 @@ function ReviewIndex() {
         // 원래 핸들러 호출
         originalHandleSelectVersion(reviewId, version);
         
-        // 선택된 버전의 텍스트를 리뷰 데이터에 업데이트
         const review = reviewsData.find(r => r.id === reviewId);
         if (review) {
             // 리뷰 언어에 따라 적절한 텍스트 선택
             const isKoreanReview = /^[가-힣]/.test(review.content);
             const selectedText = isKoreanReview ? version.koreanText : version.englishText;
             
-            setReviewsData(prev => prev.map(r => 
-                r.id === reviewId 
-                    ? { ...r, reply: selectedText }
-                    : r
-            ));
+            if (editModeFor[reviewId]) {
+                // 수정 모드일 때는 editTextFor를 업데이트
+                setEditTextFor(prev => ({ ...prev, [reviewId]: selectedText }));
+            } else {
+                // 일반 모드일 때는 reviewsData를 업데이트
+                setReviewsData(prev => prev.map(r => 
+                    r.id === reviewId 
+                        ? { ...r, reply: selectedText }
+                        : r
+                ));
+            }
         }
-    }, [originalHandleSelectVersion, reviewsData, setReviewsData]);
+    }, [originalHandleSelectVersion, reviewsData, setReviewsData, editModeFor, setEditTextFor]);
 
     // 번역 핸들러
     const handleTranslateCallback = useCallback((reviewId, originalText) => {
@@ -198,7 +203,7 @@ function ReviewIndex() {
 
     return (
         <Layout>
-            <div className="min-h-screen bg-[#F6F8FB] flex">
+            <div className="min-h-screen bg-white flex">
                 {/* Main Content */}
                 <main className="flex-1 px-8 py-10">
                     <h1 className="text-3xl font-bold text-[#222] mb-2">고객 리뷰</h1>

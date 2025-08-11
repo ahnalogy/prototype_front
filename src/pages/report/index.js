@@ -179,10 +179,11 @@ function ReportIndex({ currentUser }) {
 
   return (
     <Layout>
-      <div className="px-6 py-5 w-full min-h-screen bg-white">
-        <main className="w-full">
-          <h1 className="text-3xl font-bold text-[#222] mb-2">통계/분석</h1>
-          <p className="text-[#888] mb-8">호텔의 성과를 파악할 수 있는 통계와 분석자료입니다.</p>
+      <div className="bg-white min-h-screen w-full">
+        <div className="flex items-start justify-center gap-1 px-6 py-5 relative flex-1 self-stretch w-full grow">
+          <main className="flex-1 px-8 py-10">
+            <h1 className="text-3xl font-bold text-[#222] mb-2">통계/분석</h1>
+            <p className="text-[#888] mb-8">호텔의 성과를 파악할 수 있는 통계와 분석자료입니다.</p>
 
           <div className="bg-white rounded-xl shadow p-6 mb-6">
             <h2 className="text-lg font-bold mb-4">리포트 유형</h2>
@@ -247,7 +248,8 @@ function ReportIndex({ currentUser }) {
               {renderChart()}
             </div>
           )}
-        </main>
+          </main>
+        </div>
       </div>
     </Layout>
   );

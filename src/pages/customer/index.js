@@ -1,42 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { fetchStores } from "@/api/store";
+import { fetchPlatformList } from "@/api/platform";
 import { fetchCreateReview } from "@/api/review";
 import Layout from "@/components/Layout";
 
 function ReviewCreate() {
-  const [stores, setStores] = useState([]);
-  const [store, setStore] = useState("");
+  const [platforms, setPlatforms] = useState([]);
+  const [platform, setPlatform] = useState("");
   const [rating, setRating] = useState(1);
   const [reviewer, setReviewer] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const loadStores = async () => {
+    const loadPlatforms = async () => {
       const token = localStorage.getItem("token");
-      const data = await fetchStores(token);
-      setStores(data || []);
-      if (data && data.length > 0) setStore(data[0].name);
+      const { ok, data } = await fetchPlatformList(token);
+      if (ok) {
+        setPlatforms(data || []);
+        if (data && data.length > 0) setPlatform(data[0].name);
+      }
     };
-    loadStores();
+    loadPlatforms();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!store || !reviewer || !content) {
+    if (!platform || !reviewer || !content) {
       alert("모든 필드를 입력해주세요.");
       return;
     }
     setLoading(true);
     const token = localStorage.getItem("token");
-    const { ok, data } = await fetchCreateReview(token, reviewer, rating, store, content);
+    const { ok, data } = await fetchCreateReview(token, reviewer, rating, platform, content);
     setLoading(false);
     if (ok) {
       alert("리뷰가 등록되었습니다.");
       setReviewer("");
       setContent("");
       setRating(1);
-      setStore(stores[0]?.name || "");
+      setPlatform(platforms[0]?.name || "");
     } else {
       alert(data.detail || "리뷰 등록에 실패했습니다.");
     }
@@ -48,15 +50,15 @@ function ReviewCreate() {
         <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow p-8 w-full max-w-md space-y-6">
           <h1 className="text-2xl font-bold mb-4">리뷰 등록</h1>
           <div>
-            <label className="block mb-1 font-medium">스토어</label>
+            <label className="block mb-1 font-medium">플랫폼</label>
             <select
               className="w-full border border-[#E5E7EB] rounded-lg px-4 py-2"
-              value={store}
-              onChange={e => setStore(e.target.value)}
+              value={platform}
+              onChange={e => setPlatform(e.target.value)}
               required
             >
-              {stores.map((s) => (
-                <option key={s.id || s.name} value={s.name}>{s.name}</option>
+              {platforms.map((p) => (
+                <option key={p.id || p.name} value={p.name}>{p.name}</option>
               ))}
             </select>
           </div>

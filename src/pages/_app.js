@@ -10,6 +10,7 @@ const privatePaths = [
   "/dashboard",
   "/myinfo",
   "/store",
+  "/platform",
   "/reservation",
   "/room",
   "/report",

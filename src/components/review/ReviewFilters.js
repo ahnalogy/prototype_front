@@ -89,7 +89,10 @@ const ReviewFilters = memo(({
                 </div>
                 
                 <button 
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="px-4 py-2 text-white rounded-lg transition-colors"
+                    style={{ backgroundColor: '#d97706' }}
+                    onMouseEnter={(e) => e.target.style.backgroundColor = '#cc5500'}
+                    onMouseLeave={(e) => e.target.style.backgroundColor = '#d97706'}
                     onClick={onResetFilters}
                 >
                     초기화
