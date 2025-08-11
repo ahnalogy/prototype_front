@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { fetchPlatformList } from "@/api/platform";
-import { fetchCreateReview } from "@/api/review";
+import { fetchRefPlatformList } from "@/api/refplatform";
+import { fetchRefReviewCreate } from "@/api/refreview";
 import Layout from "@/components/Layout";
+
 
 function ReviewCreate() {
   const [platforms, setPlatforms] = useState([]);
@@ -14,7 +15,7 @@ function ReviewCreate() {
   useEffect(() => {
     const loadPlatforms = async () => {
       const token = localStorage.getItem("token");
-      const { ok, data } = await fetchPlatformList(token);
+      const { ok, data } = await fetchRefPlatformList(token);
       if (ok) {
         setPlatforms(data || []);
         if (data && data.length > 0) setPlatform(data[0].name);
@@ -31,7 +32,7 @@ function ReviewCreate() {
     }
     setLoading(true);
     const token = localStorage.getItem("token");
-    const { ok, data } = await fetchCreateReview(token, reviewer, rating, platform, content);
+    const { ok, data } = await fetchRefReviewCreate(reviewer, rating, platform, content);
     setLoading(false);
     if (ok) {
       alert("리뷰가 등록되었습니다.");

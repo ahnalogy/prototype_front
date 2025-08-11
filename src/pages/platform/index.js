@@ -118,7 +118,7 @@ const PlatformRegister = () => {
                                         <div key={platform.id || platform.name || index} className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 hover:bg-[#FFEDD4] hover:shadow-sm transition-all duration-200 cursor-pointer">
                        <span className="text-sm font-medium text-gray-700">{platform.name}</span>
                        <button
-                         onClick={() => handleDeletePlatform(platform.id || platform.name)}
+                         onClick={() => handleDeletePlatform(platform.id)}
                          className="ml-1 text-red-500 hover:text-red-700 transition-colors cursor-pointer"
                        >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
