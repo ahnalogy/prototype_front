@@ -107,11 +107,11 @@ export default function Home() {
     <div className="min-h-screen bg-[#F3F7F5] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex max-w-6xl w-full bg-white rounded-xl shadow-lg overflow-hidden">
         {/* Left Image Section */}
-        <div className="hidden lg:block lg:w-1/2">
+        <div className="hidden lg:flex lg:w-1/2 items-center justify-center bg-[#FFE9C4]">
           <img
-            src="/icons/left_side_image_resized.png"
+            src="/icons/로그인_이미지.png"
             alt="Login Visual"
-            className="w-full h-full object-cover"
+            className="max-h-full w-auto object-contain"
           />
         </div>
 
@@ -213,7 +213,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-[#e8edf2] text-black py-3 rounded-lg font-medium hover:bg-[#d1d8e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#FFE9C4] text-black py-3 rounded-lg font-medium hover:bg-[#d1d8e0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "처리 중..." : (isLoginMode ? "로그인" : "회원가입")}
             </button>
