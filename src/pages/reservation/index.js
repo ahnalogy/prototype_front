@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import tw from "tailwind-styled-components";
-import { fetchStores } from "@/api/store";
+import { fetchPlatformList } from "@/api/platform";
 
 const StoreTab = tw.div`flex flex-wrap gap-2 mb-4`;
 const StoreButton = tw.button`px-4 py-2 bg-white border border-[#E5E7EB] rounded-lg text-[#888]`;
@@ -48,17 +48,16 @@ function renderRow(row, idx) {
 function DepthFrameWrapper({ currentUser }) {
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [stores, setStores] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
   const [activeStore, setActiveStore] = useState("전체");
 
-  const loadStores = async () => {
-    const token = localStorage.getItem("token");
-    const data = await fetchStores(token);
-    setStores(data || []);
+  const loadPlatforms = async () => {
+    const {ok,data} = await fetchPlatformList();
+    setPlatforms(data || []);
   };
 
   useEffect(() => {
-    loadStores();
+    loadPlatforms();
   }, []);
 
   const handleSearch = () => {
@@ -87,13 +86,13 @@ function DepthFrameWrapper({ currentUser }) {
               >
                 전체
               </StoreButton>
-              {stores.map((store, index) => (
+              {platforms.map((platform, index) => (
                 <StoreButton
-                  key={store.id || index}
-                  onClick={() => setActiveStore(store.name)}
-                  className={activeStore === store.name ? "bg-[#fcefdc] text-black" : ""}
+                  key={platform.id || index}
+                  onClick={() => setActiveStore(platform.name)}
+                  className={activeStore === platform.name ? "bg-[#fcefdc] text-black" : ""}
                 >
-                  {store.name}
+                  {platform.name}
                 </StoreButton>
               ))}
             </StoreTab>

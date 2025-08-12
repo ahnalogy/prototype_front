@@ -28,3 +28,24 @@ export async function createAutoReview(token, reviewData) {
     throw error;
   }
 }
+
+export async function fetchRefAutoReview(token, reviewId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/autoreview/ref/${reviewId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`Error fetching auto review: ${res.statusText}`);
+    }
+
+    const data = await res.json();
+    return { ok: true, data };
+  } catch (error) {
+    console.error("Error fetching auto review:", error);
+    return { ok: false, error };
+  }
+}

@@ -26,6 +26,7 @@ const ReviewCard = memo(({
     isTranslated,
     displayText
 }) => {
+
     // 해당 리뷰의 생성 상태 확인
     const isCreatingForThisReview = isCreatingAutoReview[review.id] || false;
 
@@ -153,11 +154,17 @@ const ReviewCard = memo(({
                 )}
 
                 <div className="flex justify-end gap-3">
-                    {/* 생성하기 버튼 - 답변이 없을 때만 표시 */}
-                    {!review.isReplied && (
+                    {/* 생성하기 버튼 - 답변이 없고 해당 리뷰의 프리뷰가 없을 때만 표시 */}
+                    {!review.isReplied && 
+                     !isPreviewing[`${review.id}-1`] && 
+                     !isPreviewing[`${review.id}-2`] && 
+                     !isPreviewing[`${review.id}-3`] &&
+                     !previewText[`${review.id}-1`] && 
+                     !previewText[`${review.id}-2`] && 
+                     !previewText[`${review.id}-3`] && (
                         <button 
                             className="px-4 py-2 border border-[#E5E7EB] text-black rounded-lg cursor-pointer flex items-center gap-2"
-                            onClick={() => onGenerateReply(review)}
+                            onClick={() => {onGenerateReply(review)}}
                             disabled={isCreatingForThisReview}
                         >
                             {isCreatingForThisReview ? (
@@ -167,6 +174,30 @@ const ReviewCard = memo(({
                                 </>
                             ) : (
                                 "생성하기"
+                            )}
+                        </button>
+                    )}
+                    
+                    {/* 재생성하기 버튼 - 답변이 없고 해당 리뷰의 프리뷰가 있을 때만 표시 */}
+                    {!review.isReplied && 
+                     (isPreviewing[`${review.id}-1`] || 
+                      isPreviewing[`${review.id}-2`] || 
+                      isPreviewing[`${review.id}-3`] ||
+                      previewText[`${review.id}-1`] || 
+                      previewText[`${review.id}-2`] || 
+                      previewText[`${review.id}-3`]) && (
+                        <button 
+                            className="px-4 py-2 border border-[#E5E7EB] text-black rounded-lg cursor-pointer flex items-center gap-2"
+                            onClick={() => {onGenerateReply(review)}}
+                            disabled={isCreatingForThisReview}
+                        >
+                            {isCreatingForThisReview ? (
+                                <>
+                                    <LoadingSpinner size="sm" />
+                                    생성 중...
+                                </>
+                            ) : (
+                                "재생성하기"
                             )}
                         </button>
                     )}

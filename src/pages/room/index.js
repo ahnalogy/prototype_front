@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Layout from "@/components/Layout";
 import tw from "tailwind-styled-components";
-import { fetchStores } from "@/api/store";
+import { fetchPlatformList } from "@/api/platform";
 
 const StoreTab = tw.div`flex flex-wrap gap-2 mb-4`;
 const StoreButton = tw.button`px-4 py-2 bg-white border border-[#E5E7EB] rounded-lg text-[#888]`;
@@ -60,7 +60,7 @@ function ReserveIndex({ currentUser }) {
   const [filterCleaning, setFilterCleaning] = useState("전체");
   const [platformFilter, setPlatformFilter] = useState("전체");
 
-  const [stores, setStores] = useState([]);
+  const [platforms, setPlatforms] = useState([]);
   const [activeStore, setActiveStore] = useState("전체");
 
   const filteredRooms = rooms.filter((room) => {
@@ -74,14 +74,13 @@ function ReserveIndex({ currentUser }) {
     return matchType && matchStatus && matchCleaning && matchSearch && matchPlatform;
   });
 
-  const loadStores = async () => {
-    const token = localStorage.getItem("token");
-    const data = await fetchStores(token);
-    setStores(data || []);
+  const loadPlatforms = async () => {
+    const {ok,data} = await fetchPlatformList();
+    setPlatforms(data || []);
   };
 
   useEffect(() => {
-    loadStores();
+    loadPlatforms();
   }, []);
 
   return (
@@ -100,13 +99,13 @@ function ReserveIndex({ currentUser }) {
             >
               전체
             </StoreButton>
-            {stores.map((store, index) => (
+            {platforms.map((platform, index) => (
               <StoreButton
-                key={store.id || index}
-                onClick={() => setPlatformFilter(store.name)}
-                className={`${platformFilter === store.name ? "bg-[#fcefdc] text-black" : ""}`}
+                key={platform.id || index}
+                onClick={() => setPlatformFilter(platform.name)}
+                className={`${platformFilter === platform.name ? "bg-[#fcefdc] text-black" : ""}`}
               >
-                {store.name}
+                {platform.name}
               </StoreButton>
             ))}
           </StoreTab>

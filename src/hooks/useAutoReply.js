@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { createAutoReview } from '@/api/autoreview';
+import { fetchRefAutoReview } from '@/api/autoreview';
 
 export const useAutoReply = () => {
   const [showOptionsFor, setShowOptionsFor] = useState(null);
@@ -8,7 +9,7 @@ export const useAutoReply = () => {
   const [previewText, setPreviewText] = useState({});
   const [isPreviewing, setIsPreviewing] = useState({});
   const [isCreatingAutoReview, setIsCreatingAutoReview] = useState({});
-
+  
   const checkFirstCharType = (str) => {
     if (!str) return '빈 문자열';
     const firstChar = str[0];
@@ -64,11 +65,11 @@ export const useAutoReply = () => {
       const reviewData = {
         username: review.reviewer,
         rating: review.rating,
-        storename: review.store,
         content: review.content
       };
       
-      const { ok, data } = await createAutoReview(token, reviewData);
+      // const { ok, data } = await createAutoReview(token, reviewData);
+      const { ok, data } = await fetchRefAutoReview(token, review.id);
       
       if (!ok) {
         alert("답변을 생성할 수 없습니다.");
