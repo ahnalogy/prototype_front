@@ -138,7 +138,7 @@ const PlatformRegister = () => {
              >
                <div className="text-center mb-6">
                  <h2 className="text-xl font-bold text-[#222] mb-2">
-                   <span className="text-[#00c4c4]">플랫폼</span> 등록이 필요해요
+                   <span className="text-[#f59e0b]">플랫폼</span> 등록이 필요해요
                  </h2>
                </div>
                
@@ -174,7 +174,7 @@ const PlatformRegister = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-[#36d1c4] text-white py-3 rounded-lg font-medium hover:bg-[#2bb5a8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#f59e0b] text-white py-3 rounded-lg font-medium hover:bg-[#cc5500] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? "등록 중..." : "등록"}
                   </button>
