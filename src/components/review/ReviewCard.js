@@ -62,8 +62,34 @@ const ReviewCard = memo(({
                 </div>
             </div>
             
-            <div className="mb-4 pr-4">
+            <div className="mb-4 pr-4 flex justify-between gap-2">
+                
                 <p className="text-[#222] whitespace-pre-wrap break-words leading-relaxed">{displayText}</p>
+                {/* 랜덤 이미지 번호 생성 */}
+                {(() => {
+                    const imgNum = String(Math.floor(Math.random() * 10) + 1).padStart(3, '0');
+                    if (Math.random() < 0.5) {
+                        return (
+                            <img
+                                src={`/hotel_images/${imgNum}.png`}
+                                alt="호텔 이미지"
+                                className="w-24 h-24 object-cover rounded"
+                            />
+                        );
+                    }
+                    return (
+                        <div className="border border-gray-200 rounded-lg overflow-hidden relative group">
+                            <img 
+                                src={`/hotel_images/${imgNum}.png`}
+                                alt="호텔 이미지"
+                                className="w-24 h-24 object-cover rounded"
+                            />
+                            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800/60 transform translate-y-0 flex items-center justify-center">
+                                <div className="text-white text-2xl font-bold flex items-center justify-center h-full w-full">+3</div>
+                            </div>
+                        </div>
+                    );
+                })()}
             </div>
             
             {/* 영어 리뷰인 경우에만 번역하기 버튼 표시 */}
@@ -291,4 +317,4 @@ ReviewCard.propTypes = {
 
 ReviewCard.displayName = 'ReviewCard';
 
-export default ReviewCard; 
+export default ReviewCard;
