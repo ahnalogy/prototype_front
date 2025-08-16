@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { LoadingSpinner } from "@/components/spinner";
 import { renderStars } from "@/utils/reviewUtils";
@@ -50,6 +50,13 @@ const ReviewCard = memo(({
         return getSelectedVersionText();
     };
 
+    // 페이지 처음 렌더링 시 한 번만 이미지 번호와 타입을 결정
+    const { imgNum, showOverlay } = useMemo(() => {
+        const num = String(Math.floor(Math.random() * 10) + 1).padStart(3, '0');
+        const overlay = Math.random() >= 0.5;
+        return { imgNum: num, showOverlay: overlay };
+    }, []);
+
     return (
         <div className="bg-white rounded-xl shadow p-6">
             <div className="flex justify-between items-start mb-3">
@@ -65,31 +72,25 @@ const ReviewCard = memo(({
             <div className="mb-4 pr-4 flex justify-between gap-2">
                 
                 <p className="text-[#222] whitespace-pre-wrap break-words leading-relaxed">{displayText}</p>
-                {/* 랜덤 이미지 번호 생성 */}
-                {(() => {
-                    const imgNum = String(Math.floor(Math.random() * 10) + 1).padStart(3, '0');
-                    if (Math.random() < 0.5) {
-                        return (
-                            <img
-                                src={`/hotel_images/${imgNum}.png`}
-                                alt="호텔 이미지"
-                                className="w-24 h-24 object-cover rounded"
-                            />
-                        );
-                    }
-                    return (
-                        <div className="border border-gray-200 rounded-lg overflow-hidden relative group">
-                            <img 
-                                src={`/hotel_images/${imgNum}.png`}
-                                alt="호텔 이미지"
-                                className="w-24 h-24 object-cover rounded"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800/60 transform translate-y-0 flex items-center justify-center">
-                                <div className="text-white text-2xl font-bold flex items-center justify-center h-full w-full">+3</div>
-                            </div>
+                {/* 렌더링 시 한 번만 결정된 이미지 */}
+                {showOverlay ? (
+                    <div className="border border-gray-200 rounded-lg overflow-hidden relative group">
+                        <img 
+                            src={`/hotel_images/${imgNum}.png`}
+                            alt="호텔 이미지"
+                            className="w-24 h-24 object-cover rounded"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gray-800/60 transform translate-y-0 flex items-center justify-center">
+                            <div className="text-white text-2xl font-bold flex items-center justify-center h-full w-full">+3</div>
                         </div>
-                    );
-                })()}
+                    </div>
+                ) : (
+                    <img
+                        src={`/hotel_images/${imgNum}.png`}
+                        alt="호텔 이미지"
+                        className="w-24 h-24 object-cover rounded"
+                    />
+                )}
             </div>
             
             {/* 영어 리뷰인 경우에만 번역하기 버튼 표시 */}
